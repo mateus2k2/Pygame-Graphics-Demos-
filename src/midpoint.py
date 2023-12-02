@@ -57,7 +57,7 @@ def drawCircleCanvas():
     main.dataTela = pygame.surfarray.array3d(main.surface)
     
     game_running = False
-    mainMenu.menu_scene()
+    mainMenu.mainMenu()
 
 def circlePoints(center, radius, draw = False):
     pointsToReturn = []

@@ -31,7 +31,7 @@ def drawPolygonsCanvas(draw=True):
                 x, y = pygame.mouse.get_pos()
                 vertices.append((x, y))
                 main.surface.fill(lineColor, ((x, y), (main.Cosmetics.lineThickness, main.Cosmetics.lineThickness)))
-                points.extend((x,y))
+                points.append((x,y))
                 
                 
             elif event.type == pygame.KEYDOWN:
@@ -55,7 +55,7 @@ def drawPolygonsCanvas(draw=True):
     main.dataTela = pygame.surfarray.array3d(main.surface)
     
     game_running = False
-    mainMenu.menu_scene()
+    mainMenu.mainMenu()
 
 def rotatePolygon(vertices, angle_degrees=45):
     angle_radians = math.radians(angle_degrees)

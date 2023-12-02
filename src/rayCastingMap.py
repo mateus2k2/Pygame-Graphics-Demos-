@@ -34,12 +34,11 @@ class RayCasting:
         self.angle_speed = 0.8
         self.running = True
         self.paused = False
-        self.info_display = False
         self.clock = pygame.time.Clock()
         
         try:
             if main.dataTela == None:
-                mainMenu.menu_scene()
+                mainMenu.mainMenu()
         except:
             pass
         
@@ -74,7 +73,7 @@ class RayCasting:
         self.map_rect = self.draw_map(self.screen_map, self.block_size)
 
         # the following for checking performance only
-        self.info_display = True
+        self.info_display = False
         self.millisecs = 0
         self.timer_avg_frames = 180
         self.timer_names = []
@@ -520,5 +519,5 @@ def run():
     pygame.display.flip()
 
     RayCasting(main.surface, 60).run()
-    mainMenu.menu_scene()
+    mainMenu.mainMenu()
     

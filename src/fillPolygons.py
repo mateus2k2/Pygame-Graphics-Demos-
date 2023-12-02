@@ -44,7 +44,7 @@ def drawPolygonsCanvas():
                 points.extend([(x,y)])
                 
                 
-            elif event.type == pygame.KEYDOWN and not drawing:
+            elif ((event.type == pygame.KEYDOWN) and (not drawing)) or ((event.type == pygame.KEYDOWN) and (not main.Cosmetics.slowMode)):
                 if event.key == pygame.K_SPACE:
                     points.extend(scanLineUtil(vertices, not main.Cosmetics.slowMode))
                     vertices.clear()
@@ -59,7 +59,7 @@ def drawPolygonsCanvas():
     main.dataTela = pygame.surfarray.array3d(main.surface)
     
     game_running = False
-    mainMenu.menu_scene()
+    mainMenu.mainMenu()
 
 def scanLine(edge_table,y_min,y_max, draw = False):
     active_edge = []

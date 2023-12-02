@@ -1,3 +1,3 @@
-from mainMenu import menu_scene
+from mainMenu import mainMenu
 
-menu_scene()
+mainMenu()

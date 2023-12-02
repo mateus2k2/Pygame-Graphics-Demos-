@@ -56,7 +56,7 @@ def drawLineCanvas():
     main.dataTela = pygame.surfarray.array3d(main.surface)
     
     game_running = False
-    mainMenu.menu_scene()
+    mainMenu.mainMenu()
 
 def getLinePoints(x1, y1, x2, y2, draw=False):
     dx = abs(x2 - x1)
