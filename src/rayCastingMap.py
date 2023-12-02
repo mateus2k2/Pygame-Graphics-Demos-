@@ -79,7 +79,7 @@ class RayCasting:
         self.timer_names = []
         self.timers = np.zeros((1, 1), dtype=int)
         self.timer_frame = 0
-        self.font = pygame.font.SysFont('CourierNew', 15)
+        self.font = pygame.font.SysFont(pygame.font.get_default_font(), 15)
 
         # set up timers
         self.timer_name = []
@@ -96,22 +96,24 @@ class RayCasting:
 
     def loadMap(self):
         
-        loading_font = pygame.font.Font(None, 36)
-        loading_text = loading_font.render("Loading...", True, main.Cosmetics.corLoadingText)
-        loading_rect = loading_text.get_rect(center=(self.width // 2, self.height // 2))
-        self.screen.blit(loading_text, loading_rect)
-        pygame.display.flip()
-
+        loading_font = pygame.font.Font(pygame.font.get_default_font(), 36)
         binary_matrix = np.zeros((self.height, self.width), dtype=int)
+        
         for y in range(self.height):
+            
+            self.screen.fill(self.background_color)
+            loading_text = loading_font.render(f'Loading... {y}/{self.height}', True, main.Cosmetics.corLoadingText)
+            loading_rect = loading_text.get_rect(center=(self.width // 2, self.height // 2))
+            self.screen.blit(loading_text, loading_rect)
+            pygame.display.flip()    
+            
             for x in range(self.width):
                 pixel_color = main.dataTela[x, y]
-                is_opaque = not ((pixel_color[0] == main.Cosmetics.corFundo[0]) and (pixel_color[1] == main.Cosmetics.corFundo[1]) and (pixel_color[2] == main.Cosmetics.corFundo[2]))
-                binary_matrix[y, x] = 1 if is_opaque else 0
+                data = not ((pixel_color[0] == main.Cosmetics.corFundo[0]) and (pixel_color[1] == main.Cosmetics.corFundo[1]) and (pixel_color[2] == main.Cosmetics.corFundo[2]))
+                binary_matrix[y, x] = 1 if data else 0
                 
                 if y==0 or y==self.height-1 or x==0 or x==self.width-1:
                     binary_matrix[y, x] = 1
-                
 
         self.map = [''.join(map(str, row)) for row in binary_matrix]
 

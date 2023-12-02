@@ -17,7 +17,6 @@ class GlobalVars:
 Cosmetics = GlobalVars()
 
 pygame.init()
-
 surface = pygame.display.set_mode(Cosmetics.disp_size)
 pygame.display.set_caption('Grafica')
 clock = pygame.time.Clock()
