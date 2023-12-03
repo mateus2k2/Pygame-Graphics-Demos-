@@ -10,7 +10,7 @@ class GlobalVars:
         self.slowMode = False
         
         self.corFundo = (228, 230, 246)
-        self.disp_size = (1150, 800)
+        self.disp_size = (1000, 700)
         
         self.corLoadingText = (104, 153, 180)
     
