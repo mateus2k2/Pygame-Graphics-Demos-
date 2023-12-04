@@ -42,10 +42,12 @@ class RayCasting:
         except:
             pass
         
+        # self.width = int(self.width / self.block_size)
+        # self.height = int(self.height / self.block_size)
+        self.block_size = 1
         self.loadMap()
         self.map_array = np.zeros((len(self.map[0]), len(self.map)), dtype=np.uint8)
         self.map_blocks = {'0': 0}  # initialize block dictionary with an empty (0) block
-        self.block_size = 1
         self.make_map_array(self.map)
         self.map_size = np.array(np.shape(self.map_array))
         self.position = self.map_size / 2  # initial position at center
@@ -97,28 +99,26 @@ class RayCasting:
     def loadMap(self):
         
         loading_font = pygame.font.Font(pygame.font.get_default_font(), 36)
-        binary_matrix = np.zeros((self.height, self.width), dtype=int)
-        
-        for y in range(self.height):
-            
-            self.screen.fill(self.background_color)
-            loading_text = loading_font.render(f'Loading... {y}/{self.height}', True, main.Cosmetics.corLoadingText)
-            loading_rect = loading_text.get_rect(center=(self.width // 2, self.height // 2))
-            self.screen.blit(loading_text, loading_rect)
-            pygame.display.flip()    
-            
-            for x in range(self.width):
-                pixel_color = main.dataTela[x, y]
-                data = not ((pixel_color[0] == main.Cosmetics.corFundo[0]) and (pixel_color[1] == main.Cosmetics.corFundo[1]) and (pixel_color[2] == main.Cosmetics.corFundo[2]))
-                binary_matrix[y, x] = 1 if data else 0
-                
-                if y==0 or y==self.height-1 or x==0 or x==self.width-1:
-                    binary_matrix[y, x] = 1
-
-        self.map = [''.join(map(str, row)) for row in binary_matrix]
-
         self.screen.fill(self.background_color)
+        loading_text = loading_font.render(f'Loading...', True, main.Cosmetics.corLoadingText)
+        loading_rect = loading_text.get_rect(center=(self.width // 2, self.height // 2))
+        self.screen.blit(loading_text, loading_rect)
         pygame.display.flip()
+        
+        # superficeNativeResoltion = pygame.surfarray.make_surface(main.dataTela)
+        # superficeDownResolution = pygame.transform.scale(superficeNativeResoltion, (self.height, self.width))
+        # resized_array = pygame.surfarray.array3d(superficeDownResolution)
+        # non_matching_mask = np.any(resized_array != main.Cosmetics.corFundo, axis=-1)
+        
+        non_matching_mask = np.any(main.dataTela != main.Cosmetics.corFundo, axis=-1)
+        non_matching_mask[0, :] = 1
+        non_matching_mask[-1, :] = 1
+        non_matching_mask[:, 0] = 1
+        non_matching_mask[:, -1] = 1
+
+        non_matching_mask_str = np.where(non_matching_mask, '1', '0').transpose()
+        self.map = [''.join(row) for row in non_matching_mask_str]
+
         
     def run(self):
         """
@@ -153,19 +153,21 @@ class RayCasting:
             if not self.paused:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_LEFT]:
-                    self.pos_angle -= self.angle_speed * (self.move_speed * 0.02)
+                    self.pos_angle -= 2.5
+                    # self.pos_angle -= self.angle_speed * (self.move_speed * 0.02)
                     if self.pos_angle < 0:
                         self.pos_angle += 360
                 if keys[pygame.K_RIGHT]:
-                    self.pos_angle += self.angle_speed * (self.move_speed * 0.02)
+                    self.pos_angle += 2.5
+                    # self.pos_angle += self.angle_speed * (self.move_speed * 0.02)
                     if self.pos_angle >= 360:
                         self.pos_angle -= 360
                 if keys[pygame.K_UP]:
-                    self.move_speed += 1
+                    self.move_speed += 5
                     if self.move_speed > 150.0:
                         self.move_speed = 150.0
                 if keys[pygame.K_DOWN]:
-                    self.move_speed -= 1
+                    self.move_speed -= 5
                     if self.move_speed < 0.0:
                         self.move_speed = 0.0
 
