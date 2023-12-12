@@ -27,12 +27,12 @@ def mainMenu():
 def settingsMenu():
     menu = pygame_menu.Menu('Settings', main.Cosmetics.disp_size[0], main.Cosmetics.disp_size[1], theme=pygame_menu.themes.THEME_BLUE)
 
-    menu.add.text_input(    'Line Color R: '   ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineColorR    ,onchange=lambda value: main.Cosmetics.setLineColorR(value))
-    menu.add.text_input(    'Line Color G: '   ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineColorG    ,onchange=lambda value: main.Cosmetics.setLineColorG(value))
-    menu.add.text_input(    'Line Color B: '   ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineColorB    ,onchange=lambda value: main.Cosmetics.setLineColorB(value))
-    menu.add.text_input(    'Line Thickness: ' ,maxchar=2 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineThickness ,onchange=lambda value: main.Cosmetics.__setattr__('lineThickness', value))
-    menu.add.text_input(    'Target FPS: '     ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.targetFPS     ,onchange=lambda value: main.Cosmetics.__setattr__('targetFPS', value))
-    menu.add.toggle_switch( 'Slow Mode: '                                                          ,default=main.Cosmetics.slowMode      ,onchange=lambda value: main.Cosmetics.__setattr__('slowMode', value))
+    menu.add.text_input    ('Line Color R: '   ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineColorR    ,onchange=lambda value: main.Cosmetics.setLineColorR(value))
+    menu.add.text_input    ('Line Color G: '   ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineColorG    ,onchange=lambda value: main.Cosmetics.setLineColorG(value))
+    menu.add.text_input    ('Line Color B: '   ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineColorB    ,onchange=lambda value: main.Cosmetics.setLineColorB(value))
+    menu.add.text_input    ('Line Thickness: ' ,maxchar=2 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.lineThickness ,onchange=lambda value: main.Cosmetics.__setattr__('lineThickness' ,value))
+    menu.add.text_input    ('Target FPS: '     ,maxchar=3 ,input_type=pygame_menu.locals.INPUT_INT ,default=main.Cosmetics.targetFPS     ,onchange=lambda value: main.Cosmetics.__setattr__('targetFPS'     ,value))
+    menu.add.toggle_switch ('Slow Mode: '                                                          ,default=main.Cosmetics.slowMode      ,onchange=lambda value: main.Cosmetics.__setattr__('slowMode'      ,value))
     
     menu.add.vertical_fill()
     
