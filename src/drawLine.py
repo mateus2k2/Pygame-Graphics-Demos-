@@ -41,7 +41,7 @@ def drawLineCanvas():
 
                 if ((clickCount % 2 == 1) and (not drawing)) or ((clickCount % 2 == 1) and (not main.Cosmetics.slowMode)):
                     x2, y2 = pygame.mouse.get_pos()
-                    points.extend(getLinePoints(x1, y1, x2, y2, not main.Cosmetics.slowMode))
+                    points.extend(Bresenham(x1, y1, x2, y2, not main.Cosmetics.slowMode))
                     drawing = True
                 
                 clickCount += 1
@@ -58,7 +58,11 @@ def drawLineCanvas():
     game_running = False
     mainMenu.mainMenu()
 
-def getLinePoints(x1, y1, x2, y2, draw=False):
+def Bresenham(x1, y1, x2, y2, draw=False):
+
+    def draw(draw = True):
+        main.surface.fill(lineColor, ((x,y), (main.Cosmetics.lineThickness, main.Cosmetics.lineThickness)))
+
     dx = abs(x2 - x1)
     dy = abs(y2 - y1)
     x, y = x1, y1
@@ -70,7 +74,7 @@ def getLinePoints(x1, y1, x2, y2, draw=False):
     if dx > dy:
         err = dx / 2.0
         while x != x2:
-            if draw: main.surface.fill(lineColor, ((x,y), (main.Cosmetics.lineThickness, main.Cosmetics.lineThickness)))
+            if draw: draw()
             points.append((x, y))
             err -= dy
             if err < 0:
@@ -81,7 +85,7 @@ def getLinePoints(x1, y1, x2, y2, draw=False):
     else:
         err = dy / 2.0
         while y != y2:
-            if draw: main.surface.fill(lineColor, ((x,y), (main.Cosmetics.lineThickness, main.Cosmetics.lineThickness)))
+            if draw: draw()
             points.append((x, y))
             err -= dx
             if err < 0:
