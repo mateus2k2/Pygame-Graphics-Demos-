@@ -72,25 +72,25 @@ def Bresenham(x1, y1, x2, y2, draw=False):
     points = []
 
     if dx > dy:
-        err = dx / 2.0
+        err = 2 * dy - dx
         while x != x2:
             if draw: draw()
             points.append((x, y))
-            err -= dy
-            if err < 0:
+            err += dy
+            if err > 0:
                 y += sy
-                err += dx
+                err -= dx
             x += sx
 
     else:
-        err = dy / 2.0
+        err = 2 * dx - dy
         while y != y2:
             if draw: draw()
             points.append((x, y))
-            err -= dx
-            if err < 0:
+            err += dx
+            if err > 0:
                 x += sx
-                err += dy
+                err -= dy
             y += sy
 
     return points
